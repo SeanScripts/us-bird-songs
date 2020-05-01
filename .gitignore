@@ -1,2 +1,4 @@
 
 *.mp3
+*.npz
+.ipynb_checkpoints/process_audio-checkpoint.ipynb

@@ -114,6 +114,10 @@ recordings$lat <- as.numeric(recordings$lat)
 recordings <- recordings[complete.cases(recordings),]
 # 40857 left
 
+# Commas in the type and file name columns are annoying
+recordings <- recordings[,-8]
+recordings <- recordings[,-9]
+
 # Split into three versions:
 #  Best quality (A)
 #  Medium quality (A + B)
@@ -155,13 +159,6 @@ us_map + geom_point(aes(x=recordings_best$lng, y=recordings_best$lat), color="re
 # Looks like some states are way more popular than others.
 
 # Just check Texas only first
-texas <- us[which(us$region == "texas"),]
-head(texas)
-rownames(texas) <- NULL
-texas$group <- 1
-texas$order <- texas$order - 12202
-tx_map
-
 # Birds don't care about state boundaries,
 # so I'm just going to look at the birds "near" Texas.
 center_x <- -99
