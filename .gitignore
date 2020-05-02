@@ -2,3 +2,5 @@
 *.mp3
 *.npz
 .ipynb_checkpoints/process_audio-checkpoint.ipynb
+*.npy
+.ipynb_checkpoints/identify_song-checkpoint.ipynb

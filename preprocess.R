@@ -189,9 +189,12 @@ texas_classes <- texas_times[which(texas_times$num_recs >= 5 & texas_times$total
 barplot(texas_classes$total_length)
 sum(texas_classes$total_length)/3600 # 6.8 hours now
 
-texas_final <- sqldf("SELECT * FROM texas_only WHERE species IN (SELECT species FROM texas_classes)")
+# Also remove any recordings shorter than 6 seconds
+texas_final <- sqldf("SELECT * FROM texas_only WHERE rec_length > 5 AND species IN (SELECT species FROM texas_classes)")
 unique(texas_final$species)
-# 45 species, 509 recordings, 6.8 hours
+# 45 species, 488 recordings, 6.8 hours
+
+hist(texas_final$rec_length, breaks=20)
 
 # Save the dataframes to CSV so I don't have to download and reprocess them
 write.csv(recordings_best, "bird_recordings_best.csv", row.names=FALSE)
