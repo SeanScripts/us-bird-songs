@@ -211,3 +211,19 @@ for (i in 1:nrow(texas_final)) {
   download.file(sound_file_url, paste(paste("audio/", id, sep=""), ".mp3", sep=""), mode="wb")
 }
 
+# Let's get all the data... Having more training data will probably help.
+recordings <- read.csv("bird_recordings_general.csv")
+texas_final <- read.csv("bird_recordings_texas_final.csv")
+file_list = as.numeric(gsub(".mp3", "", list.files("audio_full")))
+for (i in 1:nrow(recordings)) {
+  id <- recordings$id[i]
+  # Also IDs that have been removed for whatever reason since the time I got the JSON
+  if (id %in% texas_final$id || id %in% file_list || id %in% c(385654, 375263, 489291, 375269)) {
+    print("Skipping file, already downloaded")
+  }
+  else {
+    sound_file_url <- paste("https:", recordings$file[i], sep="")
+    print(paste("Downloading file", i))
+    download.file(sound_file_url, paste(paste("audio_full/", id, sep=""), ".mp3", sep=""), mode="wb")
+  }
+}
